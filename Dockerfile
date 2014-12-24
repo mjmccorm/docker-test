@@ -34,5 +34,13 @@ ADD www /var/www/site
 ADD apache-config.conf /etc/httpd/conf.d/mysite.conf
 
 # By default, simply start apache.
-#CMD /usr/sbin/apache2ctl -D FOREGROUND
-CMD /usr/bin/httpd -D FOREGROUND
+#CMD /usr/sbin/apachectl -D FOREGROUND
+#CMD /usr/bin/httpd -D FOREGROUND
+#RUN /usr/sbin/apachectl
+# Simple startup script to avoid some issues observed with container restart 
+#ADD run-apache.sh /run-apache.sh
+#RUN chmod -v +x /run-apache.sh
+
+#CMD ["/run-apache.sh"]
+ENTRYPOINT [ "/usr/sbin/httpd" ]
+CMD [ "-D", "FOREGROUND" ]
